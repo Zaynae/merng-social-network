@@ -1,0 +1,16 @@
+type Comment{
+    id: ID!
+    body: String!
+    createdAt: Timestamp!
+    user: ID!
+}
+
+type Mutation{
+    createComment(input: CreateCommentInput): Post! @auth
+    deleteComment(postId: ID, commentId: ID): Post! @auth
+}
+
+input CreateCommentInput{
+    postId: ID!
+    body: String! @constraint(minLength: 2)
+}

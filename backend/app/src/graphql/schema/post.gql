@@ -1,0 +1,24 @@
+type Post{
+		id:ID!
+		body: String!
+		createdAt: Timestamp!
+		user: ID!
+		comments: [Comment]!
+		likes: [Like]!
+		likeCount: Int!
+		commentCount: Int!
+}
+
+ type Query{
+       getPosts: [Post] @auth
+       getPost(id: ID!): Post
+}
+
+type Mutation{
+	createPost(input: CreatePostInput): Post @auth
+	deletePost(id: ID!): Boolean! @auth
+}
+
+input CreatePostInput{
+	body: String! @constraint(minLength: 3)
+}

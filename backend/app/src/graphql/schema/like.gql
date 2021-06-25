@@ -1,0 +1,9 @@
+type Like{
+    id: ID!
+    createdAt: Timestamp!
+    user: ID!
+}
+
+type Mutation{
+    likePost(postId: ID!): Post! @auth
+}

@@ -1,0 +1,23 @@
+type Query{
+    users: [User]
+}
+
+type Mutation{
+    register(input: RegisterInput!): User!
+    login(email: Email!, password: String!): User!
+}
+
+type User{
+    id: ID!
+    email: String!
+    token: String!
+    username: String! 
+    createdAt: Timestamp!
+}
+
+input RegisterInput{
+    username: String!  @constraint(minLength: 3)
+    password: String!  @constraint(minLength: 8)
+    retypePassword: String!
+    email: Email! 
+}

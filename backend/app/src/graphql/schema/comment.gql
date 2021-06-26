@@ -2,7 +2,7 @@ type Comment{
     id: ID!
     body: String!
     createdAt: Timestamp!
-    user: ID!
+    user: User!
 }
 
 type Mutation{

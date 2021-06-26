@@ -1,7 +1,7 @@
 type Like{
     id: ID!
     createdAt: Timestamp!
-    user: ID!
+    user: User!
 }
 
 type Mutation{

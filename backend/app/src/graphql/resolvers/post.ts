@@ -1,3 +1,4 @@
+import User from "@app/src/models/User";
 import Post from "@models/Post";
 import user from "./user";
 
@@ -52,8 +53,32 @@ export default{
 
 	Post: {
 		likeCount : (parent: any)=> parent.likes.length,
-		commentCount : (parent: any)=> parent.comments.length
-		
+		commentCount : (parent: any)=> parent.comments.length,
+		comments: (parent: any) => {
+			const comments = parent.comments.map(async (comment: any) => {
+				const user = await User.findById(comment.user);
+				return {
+					id: comment.id,
+					createdAt: comment.createdAt,
+					user
+				};
+			});
+
+			return comments;
+		},
+		likes: (parent: any) => {
+			const likes = parent.likes.map(async (like: any) => {
+				const user = await User.findById(like.user);
+				return {
+					id: like.id,
+					createdAt: like.createdAt,
+					user
+				};
+			});
+
+			return likes;
+		},
+		user: async(parent: any) => (await User.findById(parent.user))
 	}
 
 }

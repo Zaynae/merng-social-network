@@ -2,7 +2,7 @@ type Post{
 		id:ID!
 		body: String!
 		createdAt: Timestamp!
-		user: ID!
+		user: User!
 		comments: [Comment]!
 		likes: [Like]!
 		likeCount: Int!
@@ -10,7 +10,7 @@ type Post{
 }
 
  type Query{
-       getPosts: [Post] @auth
+       getPosts: [Post] 
        getPost(id: ID!): Post
 }
 

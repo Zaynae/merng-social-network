@@ -1,11 +1,12 @@
 import Post from "@models/Post";
 import { AuthenticationError, UserInputError } from "apollo-server";
+import { postValidator } from "../validators/post";
 
 export default{
 
     Mutation: {
 		createComment: async (_:any, {input}: {input: {postId: string, body: string}}, context: any, info: any) => {
-           
+            postValidator(input);
             const {postId, body} = input;
 
             const post = await Post.findById(postId);

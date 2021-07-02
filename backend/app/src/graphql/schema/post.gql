@@ -20,5 +20,5 @@ type Mutation{
 }
 
 input CreatePostInput{
-	body: String! @constraint(minLength: 3)
+	body: String! 
 }

@@ -1,6 +1,6 @@
 import User from "@app/src/models/User";
 import Post from "@models/Post";
-import user from "./user";
+import { postValidator } from "../validators/post";
 
 export default{
     Query:{
@@ -25,6 +25,7 @@ export default{
 
 	Mutation: {
 		createPost: async (_:any, {input}: any, context: any, info: any) => {
+			postValidator(input);
 			const {body} = input;
 			const user = context.user;
 			const post = new Post({

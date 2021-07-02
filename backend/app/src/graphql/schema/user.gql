@@ -16,8 +16,8 @@ type User{
 }
 
 input RegisterInput{
-    username: String!  @constraint(minLength: 3)
-    password: String!  @constraint(minLength: 8)
+    username: String! 
+    password: String!  
     retypePassword: String!
     email: Email! 
 }

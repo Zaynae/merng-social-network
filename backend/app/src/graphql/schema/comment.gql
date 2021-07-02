@@ -12,5 +12,5 @@ type Mutation{
 
 input CreateCommentInput{
     postId: ID!
-    body: String! @constraint(minLength: 2)
+    body: String!
 }

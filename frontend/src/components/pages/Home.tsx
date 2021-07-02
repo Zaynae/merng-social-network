@@ -6,7 +6,11 @@ import PostCard from './../PostCard';
 
 function Home(props: any) {
     const { loading, data } = useQuery(GET_POSTS);
-    const { getPosts: posts } = data
+    let posts:any = [];
+    if(data){
+         posts = data.getPosts;
+    }
+    
     console.log(posts);
     
     return (

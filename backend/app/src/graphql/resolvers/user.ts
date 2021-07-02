@@ -4,6 +4,7 @@ import {UserInputError} from "apollo-server";
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 import {confirmPass} from "@utils/validators"
+import { userValidator } from "../validators/user";
 
 function generateToken(user: {id: string, email: string, username: string}){
     return jwt.sign({
@@ -28,13 +29,13 @@ export default{
             args: {input: {username: string, password: string, retypePassword: string, email: string}}, 
             context: any, 
             info: any) => {
+                userValidator(args.input);
                 let {username, password, retypePassword, email} = args.input;
                 // TODO: validate user data
                 // TODO: make sur user doesnt exist 
                 // TODO hash password and create auth token
 
                 const user = await User.findOne({email});
-                console.log(user);
                 if(user){
                     throw new UserInputError('User is taken',{
                         errors: {

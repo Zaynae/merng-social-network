@@ -1,3 +1,4 @@
+import { UserInputError } from 'apollo-server-express';
 import {
     Kind,
     GraphQLError,
@@ -9,11 +10,11 @@ import {
     const EMAIL_ADDRESS_REGEX = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
   
     if (typeof value !== 'string') {
-      throw new TypeError(`Value is not string: ${value}`);
+      throw new UserInputError(`Value is not string: ${value}`);
     }
   
     if (!EMAIL_ADDRESS_REGEX.test(value)) {
-      throw new TypeError(`Value is not a valid email address: ${value}`);
+      throw new UserInputError(`Value is not a valid email address: ${value}`);
     }
   
     return value;
@@ -34,7 +35,7 @@ import {
   
     parseLiteral(ast) {
       if (ast.kind !== Kind.STRING) {
-        throw new GraphQLError(
+        throw new UserInputError(
           `Can only validate strings as email addresses but got a: ${ast.kind}`,
         );
       }

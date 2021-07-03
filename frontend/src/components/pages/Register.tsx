@@ -1,36 +1,35 @@
 import { gql } from '@apollo/client';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {Form, Button} from 'semantic-ui-react';
 import { useMutation } from '@apollo/react-hooks';
+import {useForm} from './../../utils/hooks';
+import {AuthContext} from './../../context/auth'
 
 function Register(props: any) {
+    const context = useContext(AuthContext);
     const [errors, setErrors] = useState('');
-    const [values, setValues] = useState({
+    const {onChange, onSubmit, values} = useForm(registerUser, {
         username: '',
         email: '',
         password: '',
         retypePassword: ''
-    });
-    const onChange = (event: any) => {
-        setValues({...values, [event.target.name]: event.target.value});
-    }
-   
+    })
     //@ts-ignore
     const [register, {loading}] = useMutation(REGISTER_USER, {
-        update(_, result){
-            console.log('----result',result);
+        update(_, result: any){
+            context.login(result.data.register);
             props.history.push('/')
         },
         onError(err: any){
-            console.log('-----err', err.message,'--------');
             setErrors(err.message);
         },
         variables: values
     });
-    const onSubmit = (event: any) => {
-        event.preventDefault();
+
+    function registerUser(){
         register();
     }
+
 
     return (
         <div className="form-container">
@@ -58,7 +57,7 @@ function Register(props: any) {
 const REGISTER_USER = gql`
     mutation register(
         $username: String!
-        $email: Email!
+        $email: String!
         $password: String!
         $retypePassword: String!
     ){

@@ -10,9 +10,7 @@ function Home(props: any) {
     if(data){
          posts = data.getPosts;
     }
-    
-    console.log(posts);
-    
+        
     return (
         <Grid columns={3} >
             <Grid.Row className="page-title">
